@@ -12,7 +12,8 @@ define([
   'jquery.flot.stack',
   'jquery.flot.stackpercent',
   'jquery.flot.fillbelow',
-  'jquery.flot.crosshair'
+  'jquery.flot.dashes',
+  'jquery.flot.crosshair',
 ],
 function (angular, $, kbn, moment, _, GraphTooltip) {
   'use strict';
@@ -179,6 +180,11 @@ function (angular, $, kbn, moment, _, GraphTooltip) {
             },
             legend: { show: false },
             series: {
+              dashes: {
+                show: panel.dashes,
+                lineWidth: panel.linewidth,
+                dashLength: panel.dashLength
+              },
               stackpercent: panel.stack ? panel.percentage : false,
               stack: panel.percentage ? null : stack,
               lines:  {
@@ -224,9 +230,24 @@ function (angular, $, kbn, moment, _, GraphTooltip) {
             }
           };
 
+          // To have crosshairs working on dashed lines we display
+          // the lines with width 0
+          if(options.series.dashes.show === true) {
+            options.series.lines.show = true;
+            options.series.lines.lineWidth = 0;
+          }
+
           for (var i = 0; i < data.length; i++) {
             var series = data[i];
             series.applySeriesOverrides(panel.seriesOverrides);
+
+            if(series.dashes.show === true) {
+              series.lines.show = true;
+              series.lines.lineWidth = 0;
+            } else if(series.dashes.show === false) {
+              series.lines.lineWidth = panel.lineWidth;
+            }
+
             series.data = series.getFlotPairs(panel.nullPointMode, panel.y_formats);
 
             // if hidden remove points and disable stack
