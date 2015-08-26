@@ -66,6 +66,11 @@ function ($) {
           value = series.data[hoverIndex][1];
         }
 
+        if (scope.panel.tooltip.hideEmpty && !value) {
+          results.push({ hidden: true });
+          continue;
+        }
+
         // Highlighting multiple Points depending on the plot type
         if (scope.panel.steppedLine || (scope.panel.stack && scope.panel.nullPointMode == "null")) {
           // stacked and steppedLine plots can have series with different length.
