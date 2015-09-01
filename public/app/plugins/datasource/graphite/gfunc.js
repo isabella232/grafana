@@ -11,7 +11,8 @@ function (_, $) {
     Transform: [],
     Calculate: [],
     Filter: [],
-    Special: []
+    Special: [],
+    Check: []
   };
 
   function addFuncDef(funcDef) {
@@ -32,6 +33,56 @@ function (_, $) {
     { name: 'other', type: 'value_or_series', optional: true },
     { name: 'other', type: 'value_or_series', optional: true }
   ];
+
+  addFuncDef({
+    name: 'checkLess',
+    category: categories.Check,
+    params: [
+      { name: 'a', type: 'value_or_series' },
+      { name: 'b', type: 'value_or_series' }
+    ],
+    defaultParams: ['#A', '#B'],
+  });
+
+  addFuncDef({
+    name: 'checkLessEqual',
+    category: categories.Check,
+    params: [
+      { name: 'a', type: 'value_or_series' },
+      { name: 'b', type: 'value_or_series' }
+    ],
+    defaultParams: ['#A', '#B'],
+  });
+
+  addFuncDef({
+    name: 'checkGreater',
+    category: categories.Check,
+    params: [
+      { name: 'a', type: 'value_or_series' },
+      { name: 'b', type: 'value_or_series' }
+    ],
+    defaultParams: ['#A', '#B'],
+  });
+
+  addFuncDef({
+    name: 'checkGreaterEqual',
+    category: categories.Check,
+    params: [
+      { name: 'a', type: 'value_or_series' },
+      { name: 'b', type: 'value_or_series' }
+    ],
+    defaultParams: ['#A', '#B'],
+  });
+
+  addFuncDef({
+    name: 'checkEqual',
+    category: categories.Check,
+    params: [
+      { name: 'a', type: 'value_or_series' },
+      { name: 'b', type: 'value_or_series' }
+    ],
+    defaultParams: ['#A', '#B'],
+  });
 
   addFuncDef({
     name: 'scaleToSeconds',

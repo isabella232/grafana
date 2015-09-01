@@ -144,6 +144,10 @@ function (angular, _, config, gfunc, Parser) {
           }
         })
         .then(null, function(err) {
+          if (path === '') {
+            $scope.segments = [];
+            return;
+          }
           $scope.parserError = err.message || 'Failed to issue metric query';
         });
     }
