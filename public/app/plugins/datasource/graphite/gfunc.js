@@ -85,6 +85,13 @@ function (_, $) {
   });
 
   addFuncDef({
+    name: 'severity',
+    category: categories.Check,
+    params: [{ name: "sev", type: "int", }],
+    defaultParams: [3]
+  });
+
+  addFuncDef({
     name: 'scaleToSeconds',
     category: categories.Transform,
     params: [{ name: 'seconds', type: 'int' }],
