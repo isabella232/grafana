@@ -28,6 +28,7 @@ var (
 
 	DbCfg struct {
 		Type, Host, Name, User, Pwd, Path, SslMode string
+		MaxOpen, MaxIdle int
 	}
 
 	UseSQLite3 bool
@@ -136,13 +137,15 @@ func getEngine() (*xorm.Engine, error) {
 		return nil, fmt.Errorf("Unknown database type: %s", DbCfg.Type)
 	}
 
-	log.Info("Database: %v, ConnectionString: %v", DbCfg.Type, cnnstr)
+	log.Info("Database: %v, ConnectionString: %v, MaxConnections: %v, MaxIdle: %v", DbCfg.Type, cnnstr, DbCfg.MaxOpen, DbCfg.MaxIdle)
 
 	engine, err := xorm.NewEngine(DbCfg.Type, cnnstr)
 	if err != nil {
 		return nil, err
 	}
-	engine.SetMaxOpenConns(20)
+
+	engine.SetMaxOpenConns(DbCfg.MaxOpen)
+	engine.SetMaxIdleConns(DbCfg.MaxIdle)
 	return engine, nil
 }
 
@@ -161,4 +164,6 @@ func LoadConfig() {
 	}
 	DbCfg.SslMode = sec.Key("ssl_mode").String()
 	DbCfg.Path = sec.Key("path").MustString("data/grafana.db")
+	DbCfg.MaxOpen = sec.Key("max_connections").MustInt(100)
+	DbCfg.MaxIdle = sec.Key("max_idle_connections").MustInt(100)
 }
