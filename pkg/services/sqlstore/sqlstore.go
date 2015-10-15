@@ -138,7 +138,12 @@ func getEngine() (*xorm.Engine, error) {
 
 	log.Info("Database: %v, ConnectionString: %v", DbCfg.Type, cnnstr)
 
-	return xorm.NewEngine(DbCfg.Type, cnnstr)
+	engine, err := xorm.NewEngine(DbCfg.Type, cnnstr)
+	if err != nil {
+		return nil, err
+	}
+	engine.SetMaxOpenConns(20)
+	return engine, nil
 }
 
 func LoadConfig() {
