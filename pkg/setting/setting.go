@@ -514,8 +514,8 @@ func initLogging(args *CommandLineArgs) {
 				"level":  level,
 				"driver": sec.Key("driver").String(),
 				"conn":   sec.Key("conn").String(),
-				"max_connections": sec.Key("max_connections").Int(),
-				"max_idle_connections": sec.Key("max_idle_connections").Int(),
+				"max_connections": sec.Key("max_connections").MustInt(100),
+				"max_idle_connections": sec.Key("max_idle_connections").MustInt(1),
 			}
 		}
 
