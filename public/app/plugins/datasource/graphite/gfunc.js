@@ -85,6 +85,16 @@ function (_, $) {
   });
 
   addFuncDef({
+    name: 'checkVariance',
+    category: categories.Check,
+    params: [
+      { name: "num standard deviations", type: "int" },
+      { name: "num evaluation periods", type: "int" }
+    ],
+    defaultParams: [3, 3],
+  });
+
+  addFuncDef({
     name: 'severity',
     category: categories.Check,
     params: [{ name: "sev", type: "int", }],
