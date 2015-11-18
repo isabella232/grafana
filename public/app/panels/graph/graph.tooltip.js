@@ -6,6 +6,7 @@ function ($) {
 
   function GraphTooltip(elem, dashboard, scope, getSeriesFn) {
     var self = this;
+    var tooltipFrozen = false;
 
     var $tooltip = $('<div id="tooltip">');
 
@@ -87,20 +88,15 @@ function ($) {
     };
 
     elem.dblclick(function () {
-      var seriesList = getSeriesFn();
-      var title = "Targets:\n\n";
-      var message = "";
-      for (var i = 0; i < seriesList.length; i++) {
-        var series = seriesList[i];
-        if (i !== 0) {
-          message += "\n\n";
-        }
-        message += series.alias;
-      }
-      prompt(title + message, message);
+      var tooltipShown = $.contains(document, $tooltip[0])
+      if (!tooltipShown) return;
+
+      tooltipFrozen = !tooltipFrozen;
     });
 
     elem.mouseleave(function () {
+      if (tooltipFrozen) return;
+
       if (scope.panel.tooltip.shared) {
         var plot = elem.data().plot;
         if (plot) {
@@ -115,6 +111,8 @@ function ($) {
     });
 
     elem.bind("plothover", function (event, pos, item) {
+      if (tooltipFrozen) return;
+
       var plot = elem.data().plot;
       var plotData = plot.getData();
       var seriesList = getSeriesFn();
