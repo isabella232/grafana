@@ -86,6 +86,20 @@ function ($) {
       return results;
     };
 
+    elem.dblclick(function () {
+      var seriesList = getSeriesFn();
+      var title = "Targets:\n\n";
+      var message = "";
+      for (var i = 0; i < seriesList.length; i++) {
+        var series = seriesList[i];
+        if (i !== 0) {
+          message += "\n\n";
+        }
+        message += series.alias;
+      }
+      prompt(title + message, message);
+    });
+
     elem.mouseleave(function () {
       if (scope.panel.tooltip.shared) {
         var plot = elem.data().plot;
