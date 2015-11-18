@@ -95,7 +95,7 @@ function ($) {
     });
 
     elem.mouseleave(function () {
-      tooltipFrozen = false;
+      if (tooltipFrozen) return;
 
       if (scope.panel.tooltip.shared) {
         var plot = elem.data().plot;
