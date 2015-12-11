@@ -85,6 +85,13 @@ function (_, $) {
   });
 
   addFuncDef({
+    name: 'failureThreshold',
+    category: categories.Check,
+    params: [{ name: "threshold", type: "int", }],
+    defaultParams: [9]
+  });
+
+  addFuncDef({
     name: 'checkVariance',
     category: categories.Check,
     params: [
