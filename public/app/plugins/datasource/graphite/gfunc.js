@@ -87,8 +87,11 @@ function (_, $) {
   addFuncDef({
     name: 'failureThreshold',
     category: categories.Check,
-    params: [{ name: "threshold", type: "int", }],
-    defaultParams: [9]
+    params: [
+      { name: "numFailures", type: "int", optional: true },
+      { name: "maxDataPoints", type: "int", optional: true },
+    ],
+    defaultParams: [9, 10],
   });
 
   addFuncDef({
