@@ -394,6 +394,14 @@ function (_, $) {
   });
 
   addFuncDef({
+    name: 'timeFunction',
+    shortName: 'time',
+    category: categories.Special,
+    params: [{ name: "name", type: "string", }],
+    defaultParams: ['time']
+  });
+
+  addFuncDef({
     name: 'cactiStyle',
     category: categories.Special,
   });
