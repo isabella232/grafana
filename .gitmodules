@@ -1,4 +1,4 @@
-[submodule "wavefront"]
+[submodule "public/app/plugins/datasource/wavefront"]
 	path = public/app/plugins/datasource/wavefront
 	url = git@github.com:sunnylabs/grafana-plugin.git
 	branch = lyft-internal
