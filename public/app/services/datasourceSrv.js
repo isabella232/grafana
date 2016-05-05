@@ -50,7 +50,7 @@ function (angular, _, config) {
       var deferred = $q.defer();
 
       var pluginDef = dsConfig.meta;
-      $rootScope.require.config({waitSeconds: 0});
+
       $rootScope.require([pluginDef.module], function() {
         var AngularService = $injector.get(pluginDef.serviceName);
         var instance = new AngularService(dsConfig, pluginDef);
