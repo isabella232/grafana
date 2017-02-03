@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     'less:src',
     'concat:cssDark',
     'concat:cssLight',
-    'copy:everything_but_less_to_temp',
+    //'copy:everything_but_less_to_temp',
     'htmlmin:build',
     'ngtemplates',
     'cssmin:build',
