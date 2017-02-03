@@ -5,7 +5,7 @@ module.exports = function(config) {
       cwd: '<%= srcDir %>',
       expand: true,
       force: true,
-      src: ['**/*', '!**/*.less', '!config.js'],
+      src: ['**/*', '!**/*.less', '!config.js', '!**/wavefront/**'],
       dest: '<%= tempDir %>'
     }
   };
