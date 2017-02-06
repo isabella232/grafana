@@ -136,14 +136,17 @@ function ($, core) {
     };
 
     elem.dblclick(function () {
-      var tooltipShown = $.contains(document, $tooltip[0])
-      if (!tooltipShown) return;
-
+      var tooltipShown = $.contains(document, $tooltip[0]);
+      if (!tooltipShown) {
+        return;
+      }
       tooltipFrozen = !tooltipFrozen;
     });
 
     elem.mouseleave(function () {
-      if (tooltipFrozen) return;
+      if (tooltipFrozen) {
+        return;
+      }
       if (panel.tooltip.shared) {
         var plot = elem.data().plot;
         if (plot) {
