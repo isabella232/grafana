@@ -167,7 +167,9 @@ function ($, core) {
     });
 
     elem.bind("plothover", function (event, pos, item) {
-      if (tooltipFrozen) return;
+      if (tooltipFrozen){
+        return;
+      }
       self.show(pos, item);
 
       // broadcast to other graph panels that we are hovering!
