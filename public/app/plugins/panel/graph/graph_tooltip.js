@@ -11,6 +11,7 @@ function ($, core) {
     var self = this;
     var ctrl = scope.ctrl;
     var panel = ctrl.panel;
+    var tooltipFrozen = false;
 
     var $tooltip = $('<div class="graph-tooltip">');
 
@@ -134,7 +135,15 @@ function ($, core) {
       return results;
     };
 
+    elem.dblclick(function () {
+      var tooltipShown = $.contains(document, $tooltip[0])
+      if (!tooltipShown) return;
+
+      tooltipFrozen = !tooltipFrozen;
+    });
+
     elem.mouseleave(function () {
+      if (tooltipFrozen) return;
       if (panel.tooltip.shared) {
         var plot = elem.data().plot;
         if (plot) {
@@ -146,6 +155,7 @@ function ($, core) {
     });
 
     elem.bind("plothover", function (event, pos, item) {
+      if (tooltipFrozen) return;
       self.show(pos, item);
 
       // broadcast to other graph panels that we are hovering!
