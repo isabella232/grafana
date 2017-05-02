@@ -55,7 +55,7 @@ export class DashboardCtrl {
           dynamicDashboardSrv.init(dashboard);
           dynamicDashboardSrv.process();
 
-          unsavedChangesSrv.init(dashboard, $scope);
+          // unsavedChangesSrv.init(dashboard, $scope);
 
           $scope.dashboard = dashboard;
           $scope.dashboardMeta = dashboard.meta;
