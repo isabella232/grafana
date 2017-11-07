@@ -59,7 +59,7 @@ export class TextPanelCtrl extends PanelCtrl {
   renderMarkdown(content) {
     if (!this.remarkable) {
       return System.import('remarkable').then(Remarkable => {
-        this.remarkable = new Remarkable();
+        this.remarkable = new Remarkable({ linkTarget: '_blank' });
         this.$scope.$apply(() => {
           this.updateContent(this.remarkable.render(content));
         });
