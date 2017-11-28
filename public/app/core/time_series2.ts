@@ -20,6 +20,7 @@ function translateFillOption(fill) {
 
 export default class TimeSeries {
   datapoints: any;
+  traceIds: any;
   id: string;
   label: string;
   alias: string;
@@ -50,6 +51,7 @@ export default class TimeSeries {
   constructor(opts) {
     this.datapoints = opts.datapoints;
     this.label = opts.alias;
+    this.traceIds = opts.traceIds;
     this.id = opts.alias;
     this.alias = opts.alias;
     this.color = opts.color;
@@ -71,6 +73,22 @@ export default class TimeSeries {
     this.zindex = 0;
     this.nullPointMode = null;
     delete this.stack;
+
+    if (this.traceIds !== undefined) {
+      this.points = {
+        show: true, radius: 3,
+        symbol: (ctx, x, y, radius, shadow) => {
+          var size = radius * Math.sqrt(Math.PI) / 2;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, 360, 0);
+          ctx.stroke();
+          ctx.beginPath();
+        },
+      };
+      this.lines = {show: false};
+      this.yaxis = 2;
+    }
 
     for (var i = 0; i < overrides.length; i++) {
       var override = overrides[i];

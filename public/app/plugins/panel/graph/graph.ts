@@ -259,6 +259,7 @@ coreModule.directive('grafanaGraph', function($rootScope, timeSrv, popoverSrv) {
             shadowSize: 0
           },
           yaxes: [],
+          highlightColor: '#ffffff',
           xaxis: {},
           grid: {
             minBorderMargin: 0,
@@ -269,6 +270,7 @@ coreModule.directive('grafanaGraph', function($rootScope, timeSrv, popoverSrv) {
             clickable: true,
             color: '#c8c8c8',
             margin: { left: 0, right: 0 },
+            mouseActiveRadius: 10,
           },
           selection: {
             mode: "x",
@@ -630,6 +632,11 @@ coreModule.directive('grafanaGraph', function($rootScope, timeSrv, popoverSrv) {
             // scope.$apply(() => {
             //   eventManager.updateTime({from: pos.x, to: null});
             // });
+          }
+        } else {
+          if (item && item.series.traceIds) {
+            let idx = item.dataIndex;
+            window.open("https://app.lightstep.com/lightstep-meta/trace?span_guid=" + item.series.traceIds[idx], "_blank");
           }
         }
       });

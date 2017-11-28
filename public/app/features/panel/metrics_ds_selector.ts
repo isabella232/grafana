@@ -35,6 +35,21 @@ var template = `
     </div>
   </div>
 </div>
+<div class="gf-form-group">
+    <div class="gf-form">
+        <label class="gf-form-label">LightStep Traces</label>
+        <select class="width-15" ng-model="ctrl.panelCtrl.panel.traceType" ng-change="ctrl.tracesChange()">
+            <option value="none">None</option>
+            <option value="latency">Latency distribution</option>
+            <option value="timeseries">Each timeseries</option>
+        </select>
+    </div>
+    <div class="gf-form" ng-if="ctrl.panelCtrl.panel.traceType === 'latency'">
+        <label class="gf-form-label">Saved Search ID</label>
+        <input type="text" class="gf-form-input width-15" ng-model="ctrl.panelCtrl.panel.latencyTraceSearchID"
+        ng-blur="ctrl.setLatencyTraceSearchID()" />
+    </div>
+</div>
 `;
 
 
@@ -65,6 +80,39 @@ export class MetricsDsSelectorCtrl {
     this.dsSegment = uiSegmentSrv.newSegment({value: this.current.name, selectMode: true});
     this.mixedDsSegment = uiSegmentSrv.newSegment({value: 'Add query', selectMode: true});
   }
+
+  tracesChange() {
+    var targets = this.panelCtrl.panel.targets;
+    switch (this.panelCtrl.panel.traceType) {
+      case 'none':
+        this.panelCtrl.panel.latencyTraceSearchID = '';
+        for (let i = 0; i < targets.length; i++) {
+          targets[i].traceSearchID = '';
+          targets[i].latencyTraceSearchID = '';
+        }
+      case 'latency':
+        for (let i = 0; i < targets.length; i++) {
+          targets[i].traceSearchID = '';
+          targets[i].latencyTraceSearchID = '';
+        }
+      case 'timeseries':
+        this.panelCtrl.panel.latencyTraceSearchID = '';
+        for (let i = 0; i < targets.length; i++) {
+          targets[i].traceSearchID = 'Saved Search ID';
+          targets[i].latencyTraceSearchID = '';
+        }
+    }
+    this.panelCtrl.refresh();
+  }
+
+  setLatencyTraceSearchID() {
+    var targets = this.panelCtrl.panel.targets;
+    for (let i = 0; i < targets.length; i++) {
+      targets[i].latencyTraceSearchID = this.panelCtrl.panel.latencyTraceSearchID;
+    }
+    this.panelCtrl.refresh();
+  }
+
 
   getOptions(includeBuiltin) {
     return Promise.resolve(this.datasources.filter(value => {

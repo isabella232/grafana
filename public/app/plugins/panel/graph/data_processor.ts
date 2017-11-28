@@ -97,7 +97,8 @@ export class DataProcessor {
     var colorIndex = index % colors.length;
     var color = this.panel.aliasColors[alias] || colors[colorIndex];
 
-    var series = new TimeSeries({datapoints: datapoints, alias: alias, color: color, unit: seriesData.unit});
+    var series = new TimeSeries({datapoints: datapoints, alias: alias, color: color, unit: seriesData.unit,
+      traceIds: seriesData.traceIds});
 
     if (datapoints && datapoints.length > 0) {
       var last = datapoints[datapoints.length - 1][1];

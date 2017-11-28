@@ -43,6 +43,7 @@ class MetricsPanelCtrl extends PanelCtrl {
     this.timeSrv = $injector.get('timeSrv');
     this.templateSrv = $injector.get('templateSrv');
     this.scope = $scope;
+    this.panel.traceType = this.panel.traceType || "none";
 
     if (!this.panel.targets) {
       this.panel.targets = [{}];

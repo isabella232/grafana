@@ -24,6 +24,10 @@
 	<div ng-transclude class="gf-form-query-content" ng-if="!ctrl.collapsed">
 	</div>
 
+	<div class="gf-form" ng-if="ctrl.panelCtrl.panel.traceType == 'timeseries'">
+		<input type="text" class="gf-form-input" ng-model="ctrl.target.traceSearchID" ng-focus="ctrl.traceSearchIDFocus()" ng-blur="ctrl.traceSearchIDBlur()"></input>
+	</div>
+
 	<div class="gf-form">
 		<label class="gf-form-label dropdown">
 			<a class="pointer dropdown-toggle" data-toggle="dropdown" tabindex="1">

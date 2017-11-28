@@ -20,6 +20,12 @@ export class QueryRowCtrl {
     this.target = this.queryCtrl.target;
     this.panel = this.panelCtrl.panel;
 
+    if (this.panelCtrl.panel.latencyTraceSearchID) {
+      this.target.latencyTraceSearchID = this.panelCtrl.panel.latencyTraceSearchID;
+    } else {
+      this.target.traceSearchID = this.target.traceSearchID || "Saved Search ID";
+    }
+
     if (!this.target.refId) {
       this.target.refId = this.getNextQueryLetter();
     }
@@ -48,6 +54,19 @@ export class QueryRowCtrl {
         return other.refId !== refId;
       });
     });
+  }
+
+  traceSearchIDFocus() {
+    if (this.target.traceSearchID === "Saved Search ID") {
+      this.target.traceSearchID = "";
+    }
+  }
+
+  traceSearchIDBlur() {
+    if (this.target.traceSearchID === "") {
+      this.target.traceSearchID = "Saved Search ID";
+    }
+    this.panelCtrl.refresh();
   }
 
   toggleCollapse(init) {
