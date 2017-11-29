@@ -636,7 +636,7 @@ coreModule.directive('grafanaGraph', function($rootScope, timeSrv, popoverSrv) {
         } else {
           if (item && item.series.traceIds) {
             let idx = item.dataIndex;
-            window.open("https://app.lightstep.com/lightstep-meta/trace?span_guid=" + item.series.traceIds[idx], "_blank");
+            window.open("https://app.lightstep.com/lyft-prod/trace?span_guid=" + item.series.traceIds[idx], "_blank");
           }
         }
       });
